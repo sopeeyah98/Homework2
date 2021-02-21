@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.R.drawable.btn_star_big_off;
@@ -25,6 +28,21 @@ public class BeerAdapter extends RecyclerView.Adapter<BeerAdapter.ViewHolder> {
 
     public BeerAdapter(List<Beer> beers){
         this.beers = beers;
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder{
+        TextView textView_name;
+        TextView textView_description;
+        ImageView imageView_beer;
+        ImageView imageView_favorite;
+
+        public ViewHolder (View itemView){
+            super(itemView);
+            textView_name = itemView.findViewById(R.id.textView_name);
+            textView_description = itemView.findViewById(R.id.textView_description);
+            imageView_beer = itemView.findViewById(R.id.imageView_beer);
+            imageView_favorite = itemView.findViewById(R.id.imageView_favorite);
+        }
     }
 
     @NonNull
@@ -74,18 +92,8 @@ public class BeerAdapter extends RecyclerView.Adapter<BeerAdapter.ViewHolder> {
         return beers.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
-        TextView textView_name;
-        TextView textView_description;
-        ImageView imageView_beer;
-        ImageView imageView_favorite;
-
-        public ViewHolder (View itemView){
-            super(itemView);
-            textView_name = itemView.findViewById(R.id.textView_name);
-            textView_description = itemView.findViewById(R.id.textView_description);
-            imageView_beer = itemView.findViewById(R.id.imageView_beer);
-            imageView_favorite = itemView.findViewById(R.id.imageView_favorite);
-        }
+    public void filterList(ArrayList<Beer> filteredList){
+        beers = filteredList;
+        notifyDataSetChanged();
     }
 }
